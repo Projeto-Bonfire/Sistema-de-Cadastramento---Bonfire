@@ -12,6 +12,20 @@ Este site foi criado para alimentar o banco de dados, permitindo que o aplicativ
 
 
 
+
+## Tecnologias
+
+- react
+- styled-components
+- react-icons
+- vite
+- axios
+- templete personalizado
+- react-router-dom
+- Replit
+
+
+
 ## Usado por
 
 Esse projeto é usado pelas seguintes empresas:
@@ -64,20 +78,6 @@ Este manual tem como objetivo fornecer instruções claras e detalhadas sobre co
 
 - Certifique-se de preencher todos os campos obrigatórios em cada etapa do processo.
 - O sistema não permite deixar campos sem preencher, garantindo a integridade dos dados cadastrados.
-
-
-
-## Tecnologias
-
-- react
-- styled-components
-- react-icons
-- vite
-- axios
-- sweetalert2
-- templete personalizado
-- react-router-dom
-- Replit
 
 
 
