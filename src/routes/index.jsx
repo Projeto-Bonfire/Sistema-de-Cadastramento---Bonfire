@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 
-import Error from "../pages/error";
-import InsertUser from '../pages/insertUser';
 import InsertClass from '../pages/insertClass';
+import InsertUser from '../pages/insertUser';
 import Finish from '../pages/finish';
+import Error from "../pages/error";
+import Ping from '../pages/ping';
 
   export const Router = () => {
     return(
@@ -14,7 +15,7 @@ import Finish from '../pages/finish';
           <Route path="/" element={<InsertUser />}/>
           <Route path="/insert-class" element={<InsertClass />}/>
           <Route path="/finish" element={<Finish/>}/>
-
+					<Route path='/ping' element={<Ping/>} />
         </Routes>
       </BrowserRouter>
     )

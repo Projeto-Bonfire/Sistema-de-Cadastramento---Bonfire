@@ -7,6 +7,18 @@ align-items: center;
 display: flex;
 height: 100vh;
 width: auto;
+
+& > .token {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 8px 0;
+  width: 100px;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+}
 `
 
 export const Form = styled.div`
@@ -18,10 +30,15 @@ display: flex;
 height: 75%;
 width: 60%;
 gap: 25px;
+position: relative;
+
+@media (max-width: 820px) {
+  width: 90%;
+ }
 
 & > section {
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   display: flex;
   width: 100%;
@@ -32,6 +49,7 @@ gap: 25px;
   color: ${({theme}) => theme.colors.secondaryText};
   width: 50%;
 }
+
 `
 
 export const TextArea = styled.textarea`
@@ -41,7 +59,12 @@ padding: 5px 10px;
 height: 150px;
 outline: none;
 border: none;
-width: 50%;
+width: 75%;
+
+&::-webkit-scrollbar {
+  display: none;
+}
+
 `
 
 export const Logo = styled.div`

@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../../components/layout";
-import { Container, Users, Form, Input, Logo } from "./styles";
-import Button from "../../components/button";
+import React, { useState } from "react";
+
 import ProgressBar from "../../components/progressBar";
-import api from "../../services/api"; 
+import Layout from "../../components/layout";
+import Button from "../../components/button";
+
+import { Container, Users, Form, Input, Logo } from "./styles";
 
 const InsertClass = () => {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "/";
-    }
-  }, []);
-  
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     window.location.href = "/";
+  //   }
+  // }, []);
+
   const [classText, setClassText] = useState("");
   const users = JSON.parse(localStorage.getItem("users") || "[]");
   function sendClass(classText) {
+    if (classText.length > 0) {
       localStorage.setItem("class", classText);
       window.location.assign("/finish");
+    } else {
+      alert("Não há uma classe inserida");
+    }
   }
 
   return (
@@ -26,6 +31,7 @@ const InsertClass = () => {
         <ProgressBar currentStep="1" />
         <div>
           <Users>
+            <label>Usuários:</label>
             {users.map((user, index) => (
               <p key={index}>{user}</p>
             ))}
@@ -33,10 +39,10 @@ const InsertClass = () => {
 
           <Form>
             <Logo />
-            <div>
+            <section>
               <label>Turma dos Usuários:</label>
               <Input onChange={(e) => setClassText(e.target.value)} />
-            </div>
+            </section>
             <Button name="avançar" onAction={() => sendClass(classText)} />
           </Form>
         </div>

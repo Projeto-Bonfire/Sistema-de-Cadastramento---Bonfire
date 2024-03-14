@@ -1,43 +1,67 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../../components/layout";
-import { Container, Form, TextArea, Logo } from "./styles";
-import Button from "../../components/button";
+
 import ProgressBar from "../../components/progressBar";
+import Layout from "../../components/layout";
+import Button from "../../components/button";
+
 import setAuthToken from "../../services/setAuthToken";
-import api from "../../services/api"; 
+import api from "../../services/api";
+
+import { Container, Form, TextArea, Logo } from "./styles";
 
 const InsertUser = () => {
-  
-  const [user, setUser] = useState({ email: "carlosjosep@gmail.com", password: "12345678" });
+  const user = { email: "carlosjosep@gmail.com", password: "12345678" };
+	const [userText, setUserText] = useState("");
+	const [status, setStatus] = useState(false);
 
-
-    const Login = async () => {
-      try {
-        var response = await api.post("/user/signin", user);
-        response = response.data;
-        await setAuthToken(response.token);
-        console.log(1)
-      } catch (error) {
-        console.log(error)
-      }
+  const setToken = async () => {
+    try {
+				if (!localStorage.getItem('token') && !status){
+				      var response = await api.post("/user/signin", user);
+				      response = response.data;
+				      setAuthToken(response.token);
+							setStatus(true);
+				      alert("Token armazenado com sucesso")
+				} else {
+					setStatus(true)
+				}
+			localStorage.setItem('users', [])
+    } catch (error) {
+      alert(error);
     }
-  
+  };
+
+	useEffect(() => {
+		setToken()
+	}, [])
 
   async function sendUsers(usersText) {
-    const users = userText
-      .split(/[\n\t]+/)
-      .map((user) => user.trim())
-      .filter((user) => user !== "");
-    const List = JSON.stringify(users);
-    localStorage.setItem("users", List);
-    window.location.assign("/insert-class");
+    if (usersText.length > 0) {
+      const users = userText
+        .split(/[,\t]+/)
+        .map((user) => user.trim())
+        .filter((user) => user !== "");
+      const List = JSON.stringify(users);
+      localStorage.setItem("users", List);
+      location.assign("/insert-class");
+    } else {
+      alert("Não há usuários para inserir!");
+    }
   }
 
-  const [userText, setUserText] = useState("");
+
+
+	if (!status) return <Layout><Container>Loading...</Container> </Layout>
+		/*
+		<button className="token" onClick={() => Login}>
+			Token
+		</button>
+		*/
   return (
     <Layout onLayout={(x) => x.setBackgroundPadding(false)}>
       <Container>
         <ProgressBar currentStep="0" />
+
 
         <Form>
           <Logo />
@@ -45,19 +69,16 @@ const InsertUser = () => {
             <label>Nome do(s) Usuário(s):</label>
             <TextArea
               onChange={(e) => setUserText(e.target.value)}
-              placeholder="Anthony Lima,
+              placeholder="
+    Anthony Lima,
     Benjamin Viana,
     Gabriel da Silva Costa,
     João Felipe Dutra,
     Pedro Sampaio da Silveira,
-    Ravy Bispo Moreira,
-    Saturn Viana"
+    "
             />
           </section>
-          <Button name="avançar" onAction={async () => {
-                await sendUsers(userText);
-                await Login();
-            }}  />
+          <Button name="avançar" onAction={() => sendUsers(userText)} />
         </Form>
       </Container>
     </Layout>

@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
   font-size: 16px;
  scroll-behavior: smooth;
 }
+
+*::-webkit-scrollbar {
+display: none;
+}
 p, a, h1 {
   color: ${({theme}) => theme.colors.text};
 }

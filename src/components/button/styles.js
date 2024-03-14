@@ -6,7 +6,7 @@ box-sizing: border-box;
   color: ${({theme}) => theme.colors.text};
   padding: ${({height}) => height}px 0;
   width: ${({width}) => width}vw;
-  min-width: 200px;
+  min-width: 25vw;
   border: none;
   text-transform: uppercase;
   box-sizing: border-box;
